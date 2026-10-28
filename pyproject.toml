@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "read-the-room"
-version = "0.1.0"
-description = "Group chat manners for AI agents (built for Hermes Agent on iMessage): know when you are addressed, stay silent otherwise, work with other agents without loops."
+version = "0.2.0"
+description = "Group chat manners for personal AI agents on iMessage, WhatsApp, Telegram, Discord, Slack or Signal: know when you are addressed, stay silent otherwise, work with other agents without loops."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

@@ -1,7 +1,8 @@
 # AGENTS.md
 
-Notes for AI agents working on or installing this repo. If you are a Hermes agent and your owner asked you to
-"install read-the-room", go straight to **Installing into a Hermes agent**.
+Notes for AI agents working on or installing this repo. If your owner asked you to "install read-the-room",
+read `integrations/README.md` for the contract your gateway needs. If you are a Hermes agent, go straight to
+**Installing into a Hermes agent**.
 
 ## What this is
 
@@ -18,6 +19,7 @@ lines as context. The model makes the final call. This code never gates on a wak
 | `tests/test_read_the_room.py` | Unit tests (stdlib `unittest`). |
 | `evals/` | Behaviour eval: `cases.json` transcripts, `roster.json`, `run_eval.py`. Needs the `claude` CLI. |
 | `skill/SKILL.md` | Prompt-only version, for agents whose gateway can't be changed. |
+| `integrations/README.md` | The four-step contract for any gateway, with per-platform ids. |
 | `integrations/hermes-bluebubbles/README.md` | Step-by-step wiring for Hermes Agent's iMessage adapter. |
 | `docs/` | Hero image (`hero.html` renders `hero.png`) and a draft upstream issue. |
 

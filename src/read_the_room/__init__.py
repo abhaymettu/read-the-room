@@ -32,12 +32,20 @@ class Action(str, Enum):
     DROP = "drop"
 
 
+_JID = re.compile(r"^(\d+)(?::\d+)?@(?:s\.whatsapp\.net|c\.us)$")
+
+
 def normalize_handle(value: object) -> str:
+    """One key per sender across platforms: iMessage ``tel:+1...``, WhatsApp ``1...@s.whatsapp.net``, plain ids."""
     v = str(value or "").strip().lower()
     for prefix in ("e:", "p:", "mailto:", "tel:"):
         if v.startswith(prefix):
-            return v[len(prefix):]
-    return v
+            v = v[len(prefix):]
+            break
+    jid = _JID.match(v)
+    if jid:
+        v = jid.group(1)
+    return v[1:] if v.startswith("+") and v[1:].isdigit() else v
 
 
 @dataclass(frozen=True)
@@ -60,7 +68,8 @@ class Member:
 
 @dataclass(frozen=True)
 class Roster:
-    """Who is in the agent's groups. ``me`` is the agent itself; it has aliases but no handles."""
+    """Who is in the agent's groups. ``me`` is the agent itself; its handles are its own platform ids,
+    used only to read mention tokens like ``<@1100>``."""
     me: Member
     members: tuple
 
@@ -98,7 +107,7 @@ def _alias_spans(text: str, members: Iterable[Member]):
     hits, taken = [], []
     pairs = sorted(((a, m) for m in members for a in m.aliases), key=lambda p: -len(p[0]))
     for alias, member in pairs:
-        for match in re.finditer(rf"(?<![\w@]){re.escape(alias)}(?!\w)", text, re.IGNORECASE):
+        for match in re.finditer(rf"(?<![\w@])@?{re.escape(alias)}(?!\w)", text, re.IGNORECASE):
             span = match.span()
             if not any(s < span[1] and span[0] < e for s, e in taken):
                 taken.append(span)
@@ -106,17 +115,28 @@ def _alias_spans(text: str, members: Iterable[Member]):
     return sorted(hits, key=lambda h: h[0])
 
 
+_MENTION_TOKEN = re.compile(r"<@!?([\w.-]+)(?:\|[^>]*)?>")
+
+
+def _mention_name(match: "re.Match", roster: Roster) -> str:
+    """A Discord or Slack ``<@id>`` token, rewritten to the member's name so the usual rules apply."""
+    key = normalize_handle(match.group(1))
+    member = next((m for m in roster.everyone if key in m.handles), None)
+    return "@" + member.aliases[0] if member else match.group(0)
+
+
 def addressees(text: str, roster: Roster, reply_to: Optional[Member] = None) -> frozenset:
     """Names of the members a message seems to speak *to*.
 
     A name that opens the message ("Hermes, ..." / "hey iris") or closes a clause ("..., iris?") is
-    a vocative. A name in object position ("ask iris", "with hermes") is talked *about*, not to. A
-    threaded reply is addressed to the author it replies to. Empty means nobody in particular.
+    a vocative, and so is an ``@name`` or ``<@id>`` mention anywhere. A name in object position ("ask
+    iris", "with @hermes") is talked *about*, not to. A threaded reply is addressed to the author it
+    replies to. Empty means nobody in particular.
     """
     found = set()
     if reply_to is not None:
         found.add(reply_to.name)
-    t = text or ""
+    t = _MENTION_TOKEN.sub(lambda m: _mention_name(m, roster), text or "")
     for start, end, member in _alias_spans(t, roster.everyone):
         before = t[:start]
         after = t[end:]
@@ -125,7 +145,7 @@ def addressees(text: str, roster: Roster, reply_to: Optional[Member] = None) -> 
             continue
         opens = re.fullmatch(rf"\s*(?:{_LEAD_WORDS}[\s,]*)*", before, re.IGNORECASE) is not None
         closes = re.match(r"\s*(?:[,?!.:]|$)", after) is not None
-        if opens or closes or re.match(r"\s*[,:]", after):
+        if t[start] == "@" or opens or closes or re.match(r"\s*[,:]", after):
             found.add(member.name)
     return frozenset(found)
 

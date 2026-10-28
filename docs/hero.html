@@ -5,10 +5,10 @@
 <style>
   :root {
     --bg: #0b0b0d;
-    --panel: #161618;
+    --panel: #151517;
     --edge: rgba(255, 255, 255, 0.07);
     --me: #0a84ff;
-    --them: #2c2c2e;
+    --them: #262628;
     --text: #f5f5f7;
     --muted: #8e8e93;
     --bad: #ff6961;
@@ -17,86 +17,87 @@
   * { box-sizing: border-box; margin: 0; }
   html, body { width: 1600px; height: 900px; background: var(--bg); }
   body {
-    font: 400 24px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    font: 400 27px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
     color: var(--text);
     -webkit-font-smoothing: antialiased;
-    padding: 56px 72px;
+    padding: 52px 64px 56px;
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: 36px;
+    gap: 32px;
   }
-  header { display: flex; align-items: baseline; justify-content: space-between; }
   h1 {
-    font: 700 52px/1.05 -apple-system, "SF Pro Display", system-ui, sans-serif;
+    font: 700 48px/1.05 -apple-system, "SF Pro Display", system-ui, sans-serif;
     letter-spacing: -0.025em;
   }
   h1 span { color: var(--muted); font-weight: 600; }
-  .tag { font-size: 22px; color: var(--muted); letter-spacing: 0.01em; }
-  main { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; min-height: 0; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; min-height: 0; }
   section {
     background: var(--panel);
     border: 1px solid var(--edge);
-    border-radius: 32px;
-    padding: 28px 30px;
+    border-radius: 28px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     overflow: hidden;
   }
-  .label { display: flex; align-items: center; gap: 10px; font: 600 19px/1 system-ui; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .before .dot { background: var(--bad); }
-  .after .dot { background: var(--good); }
-  .who { font-size: 16px; color: var(--muted); margin: 8px 0 0 16px; }
-  .b {
-    max-width: 82%;
-    padding: 11px 17px;
-    border-radius: 22px;
-    font-size: 21px;
-    line-height: 1.28;
+  .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--edge);
   }
-  .me { align-self: flex-end; background: var(--me); color: #fff; border-bottom-right-radius: 7px; }
-  .them { align-self: flex-start; background: var(--them); border-bottom-left-radius: 7px; }
-  .noise { box-shadow: inset 0 0 0 2px rgba(255, 105, 97, 0.55); }
-  .quiet {
-    align-self: flex-start;
-    margin: 2px 0 4px 16px;
-    font-size: 17px;
-    color: var(--good);
-    display: flex; align-items: center; gap: 8px;
+  .label {
+    font: 600 15px/1 -apple-system, system-ui, sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
   }
-  .quiet::before { content: ""; width: 18px; height: 2px; background: currentColor; border-radius: 1px; opacity: 0.7; }
+  .label i { width: 9px; height: 9px; border-radius: 50%; }
+  .bad .label { color: var(--bad); } .bad .label i { background: var(--bad); }
+  .good .label { color: var(--good); } .good .label i { background: var(--good); }
+  .room { font-size: 17px; color: var(--muted); }
+  .room b { color: var(--text); font-weight: 600; }
+  .chat { padding: 14px 26px; display: flex; flex-direction: column; gap: 5px; }
+  .who { font-size: 18px; color: var(--muted); margin: 14px 0 3px 16px; }
+  .who em { font-style: normal; font-size: 12px; letter-spacing: 0.04em; padding: 2px 6px; margin-left: 6px;
+    border-radius: 6px; background: rgba(255, 255, 255, 0.08); color: var(--muted); text-transform: uppercase; }
+  .msg { max-width: 86%; padding: 13px 20px; border-radius: 24px; background: var(--them); align-self: flex-start; }
+  .msg.me { background: var(--me); align-self: flex-end; margin-top: 12px; }
+  .msg.warn { color: #ffd60a; }
+  .note { font-size: 18px; margin: 8px 0 4px 16px; display: flex; align-items: center; gap: 8px; }
+  .note::before { content: ""; width: 14px; height: 1.5px; background: currentColor; }
+  .bad .note { color: var(--bad); }
+  .good .note { color: var(--good); }
 </style>
 </head>
 <body>
-  <header>
-    <h1>Agents that know when to talk. <span>Group chat etiquette for Hermes.</span></h1>
-  </header>
-  <main>
-    <section class="before">
-      <div class="label"><i class="dot"></i>Before</div>
-      <div class="b me">Iris, ask my personal agent to confirm you can coordinate with it</div>
-      <div class="who">Hermes</div>
-      <div class="b them noise">that message is addressed to iris, not me. i'll stay out of it.</div>
-      <div class="b them noise">if you want me to ask your personal agent myself, say so.</div>
-      <div class="b me">iris for you too</div>
-      <div class="who">Hermes</div>
-      <div class="b them noise">"iris for you too" is ambiguous. i read it as iris answering to you the same way i do.</div>
-      <div class="b them noise">if you meant something else, say it again.</div>
-    </section>
-    <section class="after">
-      <div class="label"><i class="dot"></i>After</div>
-      <div class="b me">Iris, ask my personal agent to confirm you can coordinate with it</div>
-      <div class="who">Iris</div>
-      <div class="b them">Confirmed. We can coordinate, both ways.</div>
-      <div class="quiet">Hermes read it and stayed quiet</div>
-      <div class="b me">Iris, find the venue address. Hermes, draft the event page</div>
-      <div class="who">Iris</div>
-      <div class="b them">12 Main St.</div>
-      <div class="who">Hermes</div>
-      <div class="b them">on it. drafting the page for 12 main st. nothing publishes without your yes.</div>
-    </section>
-  </main>
+<h1>Your agent, in the group chat. <span>Out of the box, and with read-the-room.</span></h1>
+<main>
+  <section class="bad">
+    <div class="bar"><div class="label"><i></i>Out of the box</div><div class="room"><b>Saturday dinner</b> · Sam, Maya, Ada, Juno</div></div>
+    <div class="chat">
+      <div class="who">Maya</div>
+      <div class="msg">dinner saturday? somewhere in the mission</div>
+      <div class="who">Ada <em>Sam's agent</em></div>
+      <div class="msg warn">⚠️ The model returned only a silence marker for a message that needed a reply. Try again or rephrase.</div>
+      <div class="note">wasn't allowed to stay quiet</div>
+      <div class="msg me">yes! ada book us something for 4 at 8</div>
+      <div class="who">Ada <em>Sam's agent</em></div>
+      <div class="msg">Happy to help! Which neighborhood, and what kind of food are you in the mood for?</div>
+      <div class="note">never saw Maya's message</div>
+    </div>
+  </section>
+  <section class="good">
+    <div class="bar"><div class="label"><i></i>With read-the-room</div><div class="room"><b>Saturday dinner</b> · Sam, Maya, Ada, Juno</div></div>
+    <div class="chat">
+      <div class="who">Maya</div>
+      <div class="msg">dinner saturday? somewhere in the mission</div>
+      <div class="note">Ada read it and stayed quiet</div>
+      <div class="msg me">yes! ada book us something for 4 at 8. juno, put it on maya's calendar</div>
+      <div class="who">Ada <em>Sam's agent</em></div>
+      <div class="msg">booked Casa Verde on Valencia, sat 8pm for 4</div>
+      <div class="who">Juno <em>Maya's agent</em></div>
+      <div class="msg">added to Maya's calendar</div>
+      <div class="note">each did its part, no thank-you loop</div>
+    </div>
+  </section>
+</main>
 </body>
 </html>

@@ -8,7 +8,7 @@ Hermes already has the hooks this needs. A `MessageEvent` carries three fields t
 | `channel_prompt` | A per-channel system prompt for that turn only. It is never saved. The roster and the rules go here. |
 | `channel_context` | Lines placed before the new message. The addressing hint and any buffered lines go here. |
 
-The steps below assume `gateway/platforms/bluebubbles.py`. Other adapters follow the same shape.
+The steps below assume the BlueBubbles adapter: `plugins/platforms/bluebubbles/adapter.py` on current Hermes, `gateway/platforms/bluebubbles.py` on older versions. For other platforms, see [the general contract](../README.md).
 
 ## 1. Vendor the module
 
@@ -79,9 +79,9 @@ platforms:
              about: "Sam's personal agent"}
 ```
 
-Set `BLUEBUBBLES_REQUIRE_MENTION` in `.env` to the same value as `require_mention`. On the Hermes version this
-was built against, the env pass rewrites `require_mention` from that variable, and an unset variable reads as
-false. Without it, `require_mention: true` in YAML is silently ignored. See `docs/upstream-issue.md`.
+Set `BLUEBUBBLES_REQUIRE_MENTION` in `.env` to the same value as `require_mention`. The env pass rewrites
+`require_mention` from that variable, and an unset variable reads as false (still true on Hermes `main` as of
+2026-10-27). Without it, `require_mention: true` in YAML is silently ignored. See `docs/upstream-issue.md`.
 
 ## 8. Let other agents wait their turn
 

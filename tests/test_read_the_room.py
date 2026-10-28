@@ -50,6 +50,36 @@ class Addressing(unittest.TestCase):
         self.assertEqual(to("yes that one", ROSTER.me), ["Hermes"])
 
 
+class OtherPlatforms(unittest.TestCase):
+    roster = Roster.from_config({
+        "self": {"name": "Hermes", "aliases": ["hermes", "hermes_bot"], "handles": ["1100"]},
+        "members": [
+            {"name": "Sam", "role": "owner", "handles": ["+15550000001", "U07SAM"], "aliases": ["sam"]},
+            {"name": "Iris", "role": "agent", "handles": ["+15550000002", "2200"], "aliases": ["iris"]},
+        ],
+    })
+
+    def to(self, text):
+        return sorted(addressees(text, self.roster))
+
+    def test_at_mentions(self):
+        self.assertEqual(self.to("@hermes_bot draft the page"), ["Hermes"])
+        self.assertEqual(self.to("@Iris find the address. @hermes start the draft"), ["Hermes", "Iris"])
+        self.assertEqual(self.to("ask @iris for the address"), [])
+        self.assertEqual(self.to("mail it to sam@hermes.dev"), [])
+
+    def test_platform_mention_tokens(self):
+        self.assertEqual(self.to("<@1100> can you draft the page"), ["Hermes"])
+        self.assertEqual(self.to("<@!2200>, find the address"), ["Iris"])
+        self.assertEqual(self.to("<@1100|hermes>, <@2200>: can you two split this"), ["Hermes", "Iris"])
+        self.assertEqual(self.to("ask <@2200> for it"), [])
+
+    def test_whatsapp_and_slack_sender_ids(self):
+        self.assertEqual(self.roster.member_for("15550000001@s.whatsapp.net").name, "Sam")
+        self.assertEqual(self.roster.member_for("15550000002:7@s.whatsapp.net").name, "Iris")
+        self.assertEqual(self.roster.member_for("u07sam").name, "Sam")
+
+
 class Acks(unittest.TestCase):
     def test_acks(self):
         for t in ["ok", "Got it.", "thanks!", "sounds good", "👍", "will do thanks"]:
