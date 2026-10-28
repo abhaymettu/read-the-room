@@ -12,12 +12,12 @@ The steps below assume `gateway/platforms/bluebubbles.py`. Other adapters follow
 
 ## 1. Vendor the module
 
-Copy `src/group_etiquette/__init__.py` to `gateway/platforms/group_etiquette.py`. It has no dependencies.
+Copy `src/read_the_room/__init__.py` to `gateway/platforms/read_the_room.py`. It has no dependencies.
 
 ## 2. Build it from config
 
 ```python
-from .group_etiquette import Action, GroupEtiquette, Roster
+from .read_the_room import Action, GroupEtiquette, Roster
 
 # in __init__
 roster = extra.get("group_roster")

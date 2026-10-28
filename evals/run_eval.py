@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from group_etiquette import GroupEtiquette, Roster  # noqa: E402
+from read_the_room import GroupEtiquette, Roster  # noqa: E402
 
 SILENCE = "NO_REPLY"
 HERE = Path(__file__).parent

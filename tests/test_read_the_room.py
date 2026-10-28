@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from group_etiquette import Action, GroupEtiquette, Roster, addressees, is_bare_ack  # noqa: E402
+from read_the_room import Action, GroupEtiquette, Roster, addressees, is_bare_ack  # noqa: E402
 
 ROSTER = Roster.from_config({
     "self": {"name": "Hermes", "aliases": ["hermes"]},

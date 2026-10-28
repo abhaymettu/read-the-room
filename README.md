@@ -2,7 +2,7 @@
   <img src="docs/hero.png" alt="Before and after: Hermes announcing it will stay out of a message, versus Hermes staying quiet and answering only its part" width="100%">
 </p>
 
-<h1 align="center">hermes-group-etiquette</h1>
+<h1 align="center">read-the-room</h1>
 
 <p align="center">
   <b>Group chat manners for AI agents.</b><br>
@@ -91,11 +91,11 @@ Nine cases is a small eval, and they were written alongside the prompt. Add your
 ### As a library
 
 ```bash
-pip install git+https://github.com/abhaymettu/hermes-group-etiquette
+pip install git+https://github.com/abhaymettu/read-the-room
 ```
 
 ```python
-from group_etiquette import Action, GroupEtiquette, Roster
+from read_the_room import Action, GroupEtiquette, Roster
 
 etiquette = GroupEtiquette(Roster.from_config({
     "self": {"name": "Hermes", "aliases": ["hermes"], "about": "Sam's work agent"},
@@ -146,6 +146,10 @@ are in [`docs/upstream-issue.md`](docs/upstream-issue.md).
 - AutoGen [`SelectorGroupChat`](https://microsoft.github.io/autogen/0.7.3/user-guide/agentchat-user-guide/selector-group-chat.html).
   It picks one speaker per turn with a model, and by default never picks the same speaker twice in a row.
   That works for an orchestrated team, but a chat with a human owner has no central selector.
+
+## For AI agents
+
+If you're an agent installing this for your owner, or changing it, read [AGENTS.md](AGENTS.md) first.
 
 ## License
 
