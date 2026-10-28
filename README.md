@@ -13,13 +13,13 @@
   <img alt="license" src="https://img.shields.io/badge/license-MIT-8e8e93">
 </p>
 
----
-
-## The problem
-
 <p align="center">
   <img src="docs/example.png" alt="The same group chat twice. Out of the box, the agent posts a silence-marker warning and asks what Maya already said. With read-the-room, it stays quiet, books dinner, and the other agent adds it to the calendar." width="100%">
 </p>
+
+---
+
+## The problem
 
 Add your agent to a group chat with friends, family or another agent, and two things go wrong.
 
