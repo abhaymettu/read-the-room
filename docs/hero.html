@@ -3,101 +3,125 @@
 <head>
 <meta charset="utf-8">
 <style>
-  :root {
-    --bg: #0b0b0d;
-    --panel: #151517;
-    --edge: rgba(255, 255, 255, 0.07);
-    --me: #0a84ff;
-    --them: #262628;
-    --text: #f5f5f7;
-    --muted: #8e8e93;
-    --bad: #ff6961;
-    --good: #30d158;
-  }
-  * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1600px; height: 900px; background: var(--bg); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1600px; height: 900px; }
   body {
-    font: 400 27px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-    color: var(--text);
+    background: #e9e9ee;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    padding: 52px 64px 56px;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    gap: 32px;
+    display: flex; justify-content: center; align-items: flex-end; gap: 104px;
+    padding-bottom: 0;
   }
-  h1 {
-    font: 700 48px/1.05 -apple-system, "SF Pro Display", system-ui, sans-serif;
-    letter-spacing: -0.025em;
+  figure { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  figcaption {
+    font: 600 26px/1 -apple-system, "SF Pro Display", system-ui, sans-serif;
+    letter-spacing: -0.01em; color: #1d1d1f;
   }
-  h1 span { color: var(--muted); font-weight: 600; }
-  main { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; min-height: 0; }
-  section {
-    background: var(--panel);
-    border: 1px solid var(--edge);
-    border-radius: 28px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  figcaption span { color: #86868b; font-weight: 500; }
+
+  .screen {
+    zoom: 1.34;
+    width: 390px; height: 600px;
+    background: #fff;
+    border-radius: 40px 40px 0 0;
+    box-shadow: 0 0 0 0.5px rgba(0,0,0,0.08), 0 24px 60px rgba(0,0,0,0.10), 0 4px 14px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column; overflow: hidden;
+    color: #000;
   }
-  .bar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 26px;
-    border-bottom: 1px solid var(--edge);
-  }
-  .label {
-    font: 600 15px/1 -apple-system, system-ui, sans-serif;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .label i { width: 9px; height: 9px; border-radius: 50%; }
-  .bad .label { color: var(--bad); } .bad .label i { background: var(--bad); }
-  .good .label { color: var(--good); } .good .label i { background: var(--good); }
-  .room { font-size: 17px; color: var(--muted); }
-  .room b { color: var(--text); font-weight: 600; }
-  .chat { padding: 14px 26px; display: flex; flex-direction: column; gap: 5px; }
-  .who { font-size: 18px; color: var(--muted); margin: 14px 0 3px 16px; }
-  .who em { font-style: normal; font-size: 12px; letter-spacing: 0.04em; padding: 2px 6px; margin-left: 6px;
-    border-radius: 6px; background: rgba(255, 255, 255, 0.08); color: var(--muted); text-transform: uppercase; }
-  .msg { max-width: 86%; padding: 13px 20px; border-radius: 24px; background: var(--them); align-self: flex-start; }
-  .msg.me { background: var(--me); align-self: flex-end; margin-top: 12px; }
-  .msg.warn { color: #ffd60a; }
-  .note { font-size: 18px; margin: 8px 0 4px 16px; display: flex; align-items: center; gap: 8px; }
-  .note::before { content: ""; width: 14px; height: 1.5px; background: currentColor; }
-  .bad .note { color: var(--bad); }
-  .good .note { color: var(--good); }
+  .status { flex: none; height: 50px; padding: 18px 30px 0 36px; display: flex; justify-content: space-between;
+    font: 600 17px/1 -apple-system, "SF Pro Text", system-ui, sans-serif; letter-spacing: -0.02em; }
+  .status svg { height: 12px; margin-left: 6px; }
+  .nav { flex: none; position: relative; height: 74px; background: rgba(246,246,246,0.94);
+    border-bottom: 0.5px solid rgba(0,0,0,0.16); display: flex; flex-direction: column; align-items: center; }
+  .back { position: absolute; left: 10px; top: 16px; color: #007aff; display: flex; align-items: center; gap: 4px; }
+  .back svg { height: 20px; }
+  .back b { font: 500 13px/1 -apple-system, system-ui, sans-serif; background: #007aff; color: #fff; border-radius: 10px; padding: 3px 7px; }
+  .faces { display: flex; margin-top: 6px; }
+  .faces .av { width: 36px; height: 36px; font-size: 15px; box-shadow: 0 0 0 2px #f6f6f6; margin: 0 -3px; }
+  .faces .av:nth-child(2) { z-index: 4; transform: translateY(-2px) scale(1.08); }
+  .group { margin-top: 5px; font-size: 12px; color: #000; display: flex; align-items: center; gap: 2px; }
+  .group svg { height: 8px; margin-top: 1px; opacity: 0.35; }
+
+  .av { position: relative; z-index: 3; width: 28px; height: 28px; border-radius: 50%; flex: none; color: #fff;
+    background: linear-gradient(#a7adb8, #858a94); display: grid; place-items: center;
+    font: 500 12px/1 -apple-system, "SF Pro Rounded", system-ui; letter-spacing: 0.02em; }
+
+  .thread { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 0 8px; }
+  .stamp { text-align: center; font-size: 11px; color: #8e8e93; margin: 14px 0 6px; }
+  .stamp b { font-weight: 600; }
+  .run { display: flex; align-items: flex-end; gap: 8px; padding: 0 0 0 12px; margin-top: 10px; }
+  .run .stack { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+  .name { font-size: 11px; color: #8e8e93; margin: 0 0 1px 13px; }
+  .b { position: relative; max-width: 276px; padding: 7px 12px 8px; border-radius: 18px;
+    font-size: 17px; line-height: 22px; letter-spacing: -0.015em; background: #e9e9eb; color: #000; }
+  .b.tail::before, .b.tail::after { content: ""; position: absolute; bottom: 0; height: 25px; }
+  .b.tail::before { left: -7px; width: 20px; background: #e9e9eb; border-bottom-right-radius: 16px 14px; }
+  .b.tail::after { left: -26px; width: 26px; background: #fff; border-bottom-right-radius: 10px; }
+  .me { display: flex; flex-direction: column; align-items: flex-end; padding: 0 16px 0 0; margin-top: 10px; }
+  .me .b { background: #0a84ff; color: #fff; max-width: 270px; }
+  .me .b.tail::before { left: auto; right: -7px; background: #0a84ff; border-bottom-right-radius: 0; border-bottom-left-radius: 16px 14px; }
+  .me .b.tail::after { left: auto; right: -26px; border-bottom-right-radius: 0; border-bottom-left-radius: 10px; }
+  .read { font-size: 11px; color: #8e8e93; margin: 3px 4px 0 0; }
+
+  .input { flex: none; height: 54px; display: flex; align-items: center; gap: 10px; padding: 0 12px 6px; }
+  .plus { width: 34px; height: 34px; border-radius: 50%; background: #e9e9eb; display: grid; place-items: center; }
+  .plus svg { height: 15px; }
+  .field { flex: 1; height: 34px; border-radius: 17px; border: 1px solid #d1d1d6; padding: 0 14px;
+    display: flex; align-items: center; color: #c4c4c6; font-size: 16px; }
 </style>
 </head>
 <body>
-<h1>Your agent, in the group chat. <span>Out of the box, and with read-the-room.</span></h1>
-<main>
-  <section class="bad">
-    <div class="bar"><div class="label"><i></i>Out of the box</div><div class="room"><b>Saturday dinner</b> · Sam, Maya, Ada, Juno</div></div>
-    <div class="chat">
-      <div class="who">Maya</div>
-      <div class="msg">dinner saturday? somewhere in the mission</div>
-      <div class="who">Ada <em>Sam's agent</em></div>
-      <div class="msg warn">⚠️ The model returned only a silence marker for a message that needed a reply. Try again or rephrase.</div>
-      <div class="note">wasn't allowed to stay quiet</div>
-      <div class="msg me">yes! ada book us something for 4 at 8</div>
-      <div class="who">Ada <em>Sam's agent</em></div>
-      <div class="msg">Happy to help! Which neighborhood, and what kind of food are you in the mood for?</div>
-      <div class="note">never saw Maya's message</div>
+<template id="chrome">
+  <div class="status"><span>6:41</span><span>
+    <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+    <svg viewBox="0 0 16 12"><path d="M8 2.4c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .6 10.4 10.4 0 0 0 .8 3.5L2 4.8a8.6 8.6 0 0 1 6-2.4Zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4.2a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3Zm0 3.5 1.8-1.9A2.8 2.8 0 0 0 8 7.9c-.7 0-1.3.3-1.8.7L8 10.5Z"/></svg>
+    <svg viewBox="0 0 27 12"><rect x="0.5" y="0.5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="17" height="8" rx="2"/><path d="M25 4v4a2 2 0 0 0 0-4Z" opacity="0.4"/></svg>
+  </span></div>
+  <div class="nav">
+    <div class="back"><svg viewBox="0 0 12 20"><path d="M10 2 2 10l8 8" fill="none" stroke="#007aff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><b>3</b></div>
+    <div class="faces"><div class="av">M</div><div class="av">A</div><div class="av">J</div></div>
+    <div class="group">Saturday dinner <svg viewBox="0 0 6 10"><path d="m1 1 4 4-4 4" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+  </div>
+</template>
+
+<figure>
+  <figcaption>Out of the box</figcaption>
+  <div class="screen">
+    <div class="chrome"></div>
+    <div class="thread">
+      <div class="stamp"><b>Today</b> 6:38 PM</div>
+      <div class="run"><div class="av">M</div><div class="stack"><div class="name">Maya</div>
+        <div class="b tail">dinner saturday? somewhere in the mission</div></div></div>
+      <div class="run"><div class="av">A</div><div class="stack"><div class="name">Ada 🤖</div>
+        <div class="b tail">⚠️ The model returned only a silence marker for a message that needed a reply. Try again or rephrase.</div></div></div>
+      <div class="me"><div class="b tail">yes! ada book us something for 4 at 8</div></div>
+      <div class="run"><div class="av">A</div><div class="stack"><div class="name">Ada 🤖</div>
+        <div class="b tail">Happy to help! What area, and what kind of food?</div></div></div>
     </div>
-  </section>
-  <section class="good">
-    <div class="bar"><div class="label"><i></i>With read-the-room</div><div class="room"><b>Saturday dinner</b> · Sam, Maya, Ada, Juno</div></div>
-    <div class="chat">
-      <div class="who">Maya</div>
-      <div class="msg">dinner saturday? somewhere in the mission</div>
-      <div class="note">Ada read it and stayed quiet</div>
-      <div class="msg me">yes! ada book us something for 4 at 8. juno, put it on maya's calendar</div>
-      <div class="who">Ada <em>Sam's agent</em></div>
-      <div class="msg">booked Casa Verde on Valencia, sat 8pm for 4</div>
-      <div class="who">Juno <em>Maya's agent</em></div>
-      <div class="msg">added to Maya's calendar</div>
-      <div class="note">each did its part, no thank-you loop</div>
+    <div class="input"><div class="plus"><svg viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"/></svg></div><div class="field">iMessage</div></div>
+  </div>
+</figure>
+
+<figure>
+  <figcaption>With read-the-room</figcaption>
+  <div class="screen">
+    <div class="chrome"></div>
+    <div class="thread">
+      <div class="stamp"><b>Today</b> 6:38 PM</div>
+      <div class="run"><div class="av">M</div><div class="stack"><div class="name">Maya</div>
+        <div class="b tail">dinner saturday? somewhere in the mission</div></div></div>
+      <div class="me"><div class="b tail">yes! ada book us something for 4 at 8. juno, put it on maya's calendar</div></div>
+      <div class="run"><div class="av">A</div><div class="stack"><div class="name">Ada 🤖</div>
+        <div class="b tail">booked Casa Verde on Valencia, sat 8pm for 4</div></div></div>
+      <div class="run"><div class="av">J</div><div class="stack"><div class="name">Juno 🤖</div>
+        <div class="b tail">added to Maya's calendar</div></div></div>
     </div>
-  </section>
-</main>
+    <div class="input"><div class="plus"><svg viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"/></svg></div><div class="field">iMessage</div></div>
+  </div>
+</figure>
+<script>
+  const t = document.getElementById("chrome");
+  document.querySelectorAll(".chrome").forEach(el => el.replaceWith(t.content.cloneNode(true)));
+</script>
 </body>
 </html>
