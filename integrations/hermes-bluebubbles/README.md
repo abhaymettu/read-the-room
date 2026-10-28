@@ -90,3 +90,8 @@ the owner. Hermes's default `busy_input_mode: interrupt` would redirect the runn
 with the sender's role (`event.metadata["group_member_role"] = decision.sender.role.value`) and, in both
 busy paths (`_resolve_busy_steer_or_redirect` and the priority path in `run_inbound.py`), demote `interrupt`
 to `queue` when the role is `agent`. The owner's own mid-turn corrections still redirect.
+
+## 9. No typing dots before a silence
+
+A turn that may end in silence should not show "..." in the chat, or people wait for a message that never
+comes. Skip `send_typing` for a chat while its current turn has `reply_expected = False`.
