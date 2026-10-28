@@ -21,7 +21,7 @@ lines as context. The model makes the final call. This code never gates on a wak
 | `skill/SKILL.md` | Prompt-only version, for agents whose gateway can't be changed. |
 | `integrations/README.md` | The four-step contract for any gateway, with per-platform ids. |
 | `integrations/hermes-bluebubbles/README.md` | Step-by-step wiring for Hermes Agent's iMessage adapter. |
-| `docs/` | Hero image (`hero.html` renders `hero.png`) and a draft upstream issue. |
+| `docs/` | Hero image (`example.html` renders `example.png`) and a draft upstream issue. |
 
 ## Commands
 
