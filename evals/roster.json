@@ -1,0 +1,45 @@
+{
+  "self": {
+    "name": "Hermes",
+    "aliases": [
+      "hermes"
+    ],
+    "about": "Sam's work agent: work, projects and coding agents"
+  },
+  "members": [
+    {
+      "name": "Sam",
+      "role": "owner",
+      "handles": [
+        "+15550000001"
+      ],
+      "aliases": [
+        "sam"
+      ],
+      "about": "the owner; their word is authority here"
+    },
+    {
+      "name": "Iris",
+      "role": "agent",
+      "handles": [
+        "+15550000002"
+      ],
+      "aliases": [
+        "iris",
+        "personal iris"
+      ],
+      "about": "Sam's personal agent: life, contacts, personal mail"
+    },
+    {
+      "name": "Group Iris",
+      "role": "agent",
+      "handles": [
+        "+15550000003"
+      ],
+      "aliases": [
+        "group iris"
+      ],
+      "about": "Iris's persona for group chats; relays to Iris"
+    }
+  ]
+}

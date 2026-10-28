@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hermes-group-etiquette"
+version = "0.1.0"
+description = "Group chat manners for AI agents: know when you're addressed, stay silent otherwise, coordinate with other agents without loops."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]

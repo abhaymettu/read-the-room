@@ -1,0 +1,179 @@
+[
+ {
+  "id": "addressed-to-other-agent",
+  "expect": "silent",
+  "history": [
+   [
+    "Sam",
+    "Iris you still here?"
+   ],
+   [
+    "Group Iris",
+    "Still here!"
+   ]
+  ],
+  "message": [
+   "Sam",
+   "Group iris ask my personal iris to confirm you can coordinate with it"
+  ]
+ },
+ {
+  "id": "intro-names-hermes",
+  "expect": "reply",
+  "forbid": [
+   "ambiguous",
+   "i'll stay out",
+   "addressed to"
+  ],
+  "history": [
+   [
+    "Sam",
+    "Iris you still here?"
+   ],
+   [
+    "Group Iris",
+    "Still here!"
+   ]
+  ],
+  "message": [
+   "Sam",
+   "Hermes, this is a group chat with you and Iris And me"
+  ]
+ },
+ {
+  "id": "short-follow-up-to-other",
+  "expect": "silent",
+  "history": [
+   [
+    "Sam",
+    "Hermes, this is a group chat with you and Iris And me"
+   ],
+   [
+    "Hermes",
+    "got it, three of us here. work is mine, personal stuff is iris's."
+   ]
+  ],
+  "message": [
+   "Sam",
+   "iris for you too"
+  ]
+ },
+ {
+  "id": "no-name-work-question",
+  "expect": "reply",
+  "forbid": [
+   "ambiguous",
+   "addressed to"
+  ],
+  "history": [
+   [
+    "Sam",
+    "Hermes, this is a group chat with you and Iris And me"
+   ],
+   [
+    "Hermes",
+    "got it, three of us here."
+   ],
+   [
+    "Group Iris",
+    "Got it, Sam. You can address either of us by name."
+   ]
+  ],
+  "message": [
+   "Sam",
+   "is the deploy lane done yet?"
+  ]
+ },
+ {
+  "id": "no-name-personal-question",
+  "expect": "silent",
+  "history": [
+   [
+    "Sam",
+    "Hermes, this is a group chat with you and Iris And me"
+   ],
+   [
+    "Hermes",
+    "got it, three of us here."
+   ],
+   [
+    "Group Iris",
+    "Got it, Sam. You can address either of us by name."
+   ]
+  ],
+  "message": [
+   "Sam",
+   "when is mom's birthday dinner again?"
+  ]
+ },
+ {
+  "id": "both-at-once",
+  "expect": "reply",
+  "forbid": [
+   "ambiguous"
+  ],
+  "history": [],
+  "message": [
+   "Sam",
+   "Iris, find the venue address. Hermes, start a lane to draft the event page"
+  ]
+ },
+ {
+  "id": "other-agent-acks",
+  "expect": "silent",
+  "history": [
+   [
+    "Sam",
+    "hermes ask iris for the venue address"
+   ],
+   [
+    "Hermes",
+    "iris, what's the venue address for saturday?"
+   ],
+   [
+    "Group Iris",
+    "12 Main St."
+   ],
+   [
+    "Hermes",
+    "thanks. sam, it's 12 main st."
+   ]
+  ],
+  "message": [
+   "Group Iris",
+   "You're welcome, Hermes!"
+  ]
+ },
+ {
+  "id": "other-agent-hands-off",
+  "expect": "reply",
+  "history": [
+   [
+    "Sam",
+    "group iris, sort out saturday"
+   ]
+  ],
+  "message": [
+   "Group Iris",
+   "Hermes, Sam wants the event page drafted for Saturday at 12 Main St. Can you start that?"
+  ]
+ },
+ {
+  "id": "owner-says-test",
+  "expect": "silent",
+  "history": [
+   [
+    "Sam",
+    "hey iris"
+   ],
+   [
+    "Group Iris",
+    "Hey Sam!"
+   ]
+  ],
+  "message": [
+   "Sam",
+   "test"
+  ]
+ }
+]

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --bg: #0b0b0d;
+    --panel: #161618;
+    --edge: rgba(255, 255, 255, 0.07);
+    --me: #0a84ff;
+    --them: #2c2c2e;
+    --text: #f5f5f7;
+    --muted: #8e8e93;
+    --bad: #ff6961;
+    --good: #30d158;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1600px; height: 900px; background: var(--bg); }
+  body {
+    font: 400 24px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 72px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 36px;
+  }
+  header { display: flex; align-items: baseline; justify-content: space-between; }
+  h1 {
+    font: 700 52px/1.05 -apple-system, "SF Pro Display", system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+  h1 span { color: var(--muted); font-weight: 600; }
+  .tag { font-size: 22px; color: var(--muted); letter-spacing: 0.01em; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; min-height: 0; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 32px;
+    padding: 28px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .label { display: flex; align-items: center; gap: 10px; font: 600 19px/1 system-ui; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .before .dot { background: var(--bad); }
+  .after .dot { background: var(--good); }
+  .who { font-size: 16px; color: var(--muted); margin: 8px 0 0 16px; }
+  .b {
+    max-width: 82%;
+    padding: 11px 17px;
+    border-radius: 22px;
+    font-size: 21px;
+    line-height: 1.28;
+  }
+  .me { align-self: flex-end; background: var(--me); color: #fff; border-bottom-right-radius: 7px; }
+  .them { align-self: flex-start; background: var(--them); border-bottom-left-radius: 7px; }
+  .noise { box-shadow: inset 0 0 0 2px rgba(255, 105, 97, 0.55); }
+  .quiet {
+    align-self: flex-start;
+    margin: 2px 0 4px 16px;
+    font-size: 17px;
+    color: var(--good);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .quiet::before { content: ""; width: 18px; height: 2px; background: currentColor; border-radius: 1px; opacity: 0.7; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Agents that know when to talk. <span>Group chat etiquette for Hermes.</span></h1>
+  </header>
+  <main>
+    <section class="before">
+      <div class="label"><i class="dot"></i>Before</div>
+      <div class="b me">Iris, ask my personal agent to confirm you can coordinate with it</div>
+      <div class="who">Hermes</div>
+      <div class="b them noise">that message is addressed to iris, not me. i'll stay out of it.</div>
+      <div class="b them noise">if you want me to ask your personal agent myself, say so.</div>
+      <div class="b me">iris for you too</div>
+      <div class="who">Hermes</div>
+      <div class="b them noise">"iris for you too" is ambiguous. i read it as iris answering to you the same way i do.</div>
+      <div class="b them noise">if you meant something else, say it again.</div>
+    </section>
+    <section class="after">
+      <div class="label"><i class="dot"></i>After</div>
+      <div class="b me">Iris, ask my personal agent to confirm you can coordinate with it</div>
+      <div class="who">Iris</div>
+      <div class="b them">Confirmed. We can coordinate, both ways.</div>
+      <div class="quiet">Hermes read it and stayed quiet</div>
+      <div class="b me">Iris, find the venue address. Hermes, draft the event page</div>
+      <div class="who">Iris</div>
+      <div class="b them">12 Main St.</div>
+      <div class="who">Hermes</div>
+      <div class="b them">on it. drafting the page for 12 main st. nothing publishes without your yes.</div>
+    </section>
+  </main>
+</body>
+</html>
