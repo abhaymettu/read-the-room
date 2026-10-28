@@ -82,3 +82,11 @@ platforms:
 Set `BLUEBUBBLES_REQUIRE_MENTION` in `.env` to the same value as `require_mention`. On the Hermes version this
 was built against, the env pass rewrites `require_mention` from that variable, and an unset variable reads as
 false. Without it, `require_mention: true` in YAML is silently ignored. See `docs/upstream-issue.md`.
+
+## 8. Let other agents wait their turn
+
+With one shared session per group, a line from another agent can arrive while your agent is still answering
+the owner. Hermes's default `busy_input_mode: interrupt` would redirect the running turn. Tag group events
+with the sender's role (`event.metadata["group_member_role"] = decision.sender.role.value`) and, in both
+busy paths (`_resolve_busy_steer_or_redirect` and the priority path in `run_inbound.py`), demote `interrupt`
+to `queue` when the role is `agent`. The owner's own mid-turn corrections still redirect.
