@@ -91,7 +91,7 @@ Nine cases is a small eval, and they were written alongside the prompt. Add your
 ### As a library
 
 ```bash
-pip install git+https://github.com/<owner>/hermes-group-etiquette
+pip install git+https://github.com/abhaymettu/hermes-group-etiquette
 ```
 
 ```python
